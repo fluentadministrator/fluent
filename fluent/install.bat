@@ -42,13 +42,13 @@ if %errorlevel% neq 0 (
 
 echo [2/2] Installing FLUENT...
 
-:: Copy into System32 so it works in every terminal instantly, no PATH editing needed
+
 copy /Y "%SCRIPT_DIR%\build\fluent.exe" "C:\Windows\System32\fluent.exe" >nul 2>&1
 if %errorlevel% equ 0 (
     echo    Installed to C:\Windows\System32\fluent.exe
     echo    fluent is now available in ALL terminals immediately.
 ) else (
-    :: No admin rights - fall back to script dir and update PATH
+    
     copy /Y "%SCRIPT_DIR%\build\fluent.exe" "%SCRIPT_DIR%\fluent.exe" >nul
     echo    Installed to: %SCRIPT_DIR%\fluent.exe
 
