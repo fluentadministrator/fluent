@@ -2,6 +2,8 @@
 
 **FLUENT** is a human-readable, naturally-expressive programming language that reads like plain English. Build scripts, applications, GUIs, and automations with zero boilerplate.
 
+Before running, you must run it via administrator, this is highly recommended and most features will not work without it.
+
 ---
 
 ## Quick Install
