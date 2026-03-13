@@ -277,6 +277,18 @@ say import_mymodule
 
 say "Using module: ", import_mymodule
 list import_mymodule
+
+Also people really keep mistaking the modules, you have to create a module.fluent it should contain
+
+make greeting global
+let greeting be "Hello from the module!"
+
+aka variables or anything be global, for it to work. and for executing it.
+
+import "mymodule"
+say greeting
+
+It is that easy.
 ```
 
 ### Databases
