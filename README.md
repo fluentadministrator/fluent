@@ -272,12 +272,6 @@ done
 
 ### Imports & Modules
 ```fluent
-import "mymodule"
-say import_mymodule
-
-say "Using module: ", import_mymodule
-list import_mymodule
-
 Also people really keep mistaking the modules, you have to create a module.fluent it should contain
 
 make greeting global
