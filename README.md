@@ -1,10 +1,11 @@
 # FLUENT Language
 
-**FLUENT** is a human-readable, naturally-expressive programming language that reads like plain English. Build scripts and automations with zero boilerplate.
+**FLUENT** is a human-readable, naturally-expressive programming language that reads like plain English. Build scripts, applications, GUIs, and automations with zero boilerplate.
 
 This language performs high-level OS orchestration, and it requires elevated privileges to interface with the kernel/hardware.
 
-Keep in mind, Its overhead is almost 0 always add an wait function for automated or just running any scripts to prevent from it bugging out due to its speed.
+> **Note:** Its overhead is almost 0 — always add a `wait` when running automated scripts to prevent issues caused by its speed.
+
 ---
 
 ## Quick Install
@@ -25,10 +26,9 @@ install.bat
 mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 cmake --build . --config Release
-# Binary is at build/fluent (or build/Release/fluent.exe on Windows)
 ```
 
-**Requirements:** CMake 3.16+, GCC 9+ / Clang 10+ / MSVC 2019+
+**Requirements:** GCC 9+ / Clang 10+ / MSVC 2019+, CMake 3.16+
 
 ---
 
@@ -37,8 +37,6 @@ cmake --build . --config Release
 ```bash
 fluent script.fluent
 ```
-
-FLUENT watches your script for changes and **automatically reloads** the running instance when you save.
 
 ---
 
@@ -128,11 +126,10 @@ done
 ### Obfuscation
 ```fluent
 obfuscate name and turn the obscured text to "****"
-say name                          :prints ****:
+say name                            :prints ****:
 
 set name to be deobfuscated
-say "Revealed: ", name
-
+change secret to be deobfuscated
 say "Inline: ", make secret be deobfuscated
 ```
 
@@ -171,8 +168,6 @@ done
 ```fluent
 repeat counter while adding 10 stop only when counter is 100
 repeat counter while reducing 5 stop only when counter is 0
-
-repeat name if name has a text inside called "hello" and stop only when name does not have the text "hello"
 ```
 
 ### Math Helpers
@@ -198,9 +193,7 @@ ask "What is your name?" and have the options "Alice", "Bob", "Other"
 
 ask "Continue?" and have the options "Yes", "No" if picked Yes then
     say "Great, continuing!"
-done
-
-ask "Continue?" and have the options "Yes", "No" if picked No then
+otherwise
     say "Stopping."
 done
 ```
@@ -246,11 +239,33 @@ say warning "Deprecated feature"
 log error name to errors.txt
 ```
 
-### Files
+### Files (Create / Delete / Rename)
 ```fluent
 create a file called "Report" with the file type as txt then wait up to 2 seconds then delete
 create a file called "Config" with the file type as txt then wait up to 1 second then rename to "Settings"
-create a file called "App" with the file type as exe then wait up to 1 second then rename to "MyApp"
+```
+
+### Reading and Writing Files
+```fluent
+:Write text to a file (overwrites existing content):
+write "Hello World" to file "notes.txt"
+write name to file "notes.txt"
+
+:Append to an existing file without overwriting:
+append "Another line" to file "notes.txt"
+append name to file "notes.txt"
+
+:Read a file into a variable:
+read file "notes.txt" into content
+say content
+
+:Write a variable or table as JSON:
+let items be a table containing "apple", "banana", "cherry"
+write json items to file "data.json"
+
+:Read JSON back into a variable:
+read json file "data.json" into loaded
+say loaded
 ```
 
 ### Hardware
@@ -272,18 +287,16 @@ done
 
 ### Imports & Modules
 ```fluent
-Also people really keep mistaking the modules, you have to create a module.fluent it should contain
-
+:Create mymodule.fluent:
 make greeting global
 let greeting be "Hello from the module!"
 
-aka variables or anything be global, for it to work. and for executing it.
-
+:Then in your main script:
 import "mymodule"
 say greeting
-
-It is that easy.
 ```
+
+Both files must be in the same folder. Any variable you want to export from a module **must** be declared `global` before the `let`.
 
 ### Databases
 ```fluent
@@ -345,12 +358,6 @@ list import_mymodule
 | Table | `a table containing "a", "b"` |
 | Obfuscated | `"hello" obscured as "h###o"` |
 | Random | `a random number from 1 to 100` |
-
----
-
-## Hot Reload
-
-FLUENT automatically watches the running script. When you save changes, the interpreter restarts with the updated code immediately — no need to restart manually.
 
 ---
 
